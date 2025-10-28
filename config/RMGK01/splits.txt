@@ -7669,11 +7669,11 @@ Game/Screen/FullnessMeter.cpp:
 
 Game/Screen/FullScreenBlur.cpp:
 	.text       start:0x803581EC end:0x8035847C
+	.rodata     start:0x8053A678 end:0x8053A680
 	.sdata2     start:0x806C0F38 end:0x806C0F58
 
 Game/Screen/GalaxyCometScreenFilter.cpp:
 	.text       start:0x8035847C end:0x803585A8
-	.rodata     start:0x8053A678 end:0x8053A680
 	.data       start:0x805D4520 end:0x805D4580
 
 Game/Screen/GalaxyConfirmLayout.cpp:
