@@ -2176,7 +2176,7 @@ config.libs = [
             Object(NonMatching, "Game/System/Overwrite.cpp"),
             Object(Matching, "Game/System/PauseButtonCheckerInGame.cpp"),
             Object(NonMatching, "Game/System/PlacedHiddenStarScenarioTable.cpp"),
-            Object(NonMatching, "Game/System/RenderMode.cpp"),
+            Object(Matching, "Game/System/RenderMode.cpp"),
             Object(NonMatching, "Game/System/ResourceHolder.cpp"),
             Object(Matching, "Game/System/ResourceHolderManager.cpp"),
             Object(Matching, "Game/System/ResourceInfo.cpp"),
