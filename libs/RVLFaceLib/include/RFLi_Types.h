@@ -1,7 +1,9 @@
 #ifndef RVL_FACE_LIBRARY_INTERNAL_TYPES_H
 #define RVL_FACE_LIBRARY_INTERNAL_TYPES_H
+
 #include <RFL_Types.h>
 #include <revolution/types.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -19,28 +21,6 @@ extern "C" {
 /**
  * Common enums
  */
-
-typedef enum {
-    RFLiArcID_Beard,
-    RFLiArcID_Eye,
-    RFLiArcID_Eyebrow,
-    RFLiArcID_Faceline,
-    RFLiArcID_FaceTex,
-    RFLiArcID_ForeHead,
-    RFLiArcID_Glass,
-    RFLiArcID_GlassTex,
-    RFLiArcID_Hair,
-    RFLiArcID_Mask,
-    RFLiArcID_Mole,
-    RFLiArcID_Mouth,
-    RFLiArcID_Mustache,
-    RFLiArcID_Nose,
-    RFLiArcID_Nline,
-    RFLiArcID_NlineTex,
-    RFLiArcID_Cap,
-    RFLiArcID_CapTex,
-    RFLiArcID_Max
-} RFLiArcID;
 
 typedef enum {
     RFLiAsyncTag_WriteFile,
@@ -88,11 +68,7 @@ typedef enum {
     RFLiHiddenType_Yes,
 } RFLiHiddenType;
 
-typedef enum {
-    RFLiOpenType_Multi,
-    RFLiOpenType_Single,
-    RFLiOpenType_Opened
-} RFLiOpenType;
+typedef enum { RFLiOpenType_Multi, RFLiOpenType_Single, RFLiOpenType_Opened } RFLiOpenType;
 
 typedef enum {
     RFLiPartsShp_Nose,
@@ -146,7 +122,7 @@ typedef struct RFLiCharInfo {
             u16 padding : 6;
         };
         u16 rawdata;
-    } faceline; // at 0x0
+    } faceline;  // at 0x0
 
     union {
         struct {
@@ -156,7 +132,7 @@ typedef struct RFLiCharInfo {
             u16 padding : 5;
         };
         u16 rawdata;
-    } hair; // at 0x2
+    } hair;  // at 0x2
 
     union {
         struct {
@@ -169,7 +145,7 @@ typedef struct RFLiCharInfo {
             u32 padding : 5;
         };
         u32 rawdata;
-    } eye; // at 0x4
+    } eye;  // at 0x4
 
     union {
         struct {
@@ -182,7 +158,7 @@ typedef struct RFLiCharInfo {
             u32 padding : 6;
         };
         u32 rawdata;
-    } eyebrow; // at 0x8
+    } eyebrow;  // at 0x8
 
     union {
         struct {
@@ -192,7 +168,7 @@ typedef struct RFLiCharInfo {
             u16 padding : 3;
         };
         u16 rawdata;
-    } nose; // at 0xC
+    } nose;  // at 0xC
 
     union {
         struct {
@@ -202,7 +178,7 @@ typedef struct RFLiCharInfo {
             u16 y : 5;
         };
         u16 rawdata;
-    } mouth; // at 0xE
+    } mouth;  // at 0xE
 
     union {
         struct {
@@ -213,7 +189,7 @@ typedef struct RFLiCharInfo {
             u16 y : 5;
         };
         u16 rawdata;
-    } beard; // at 0x10
+    } beard;  // at 0x10
 
     union {
         struct {
@@ -223,7 +199,7 @@ typedef struct RFLiCharInfo {
             u16 y : 5;
         };
         u16 rawdata;
-    } glass; // at 0x12
+    } glass;  // at 0x12
 
     union {
         struct {
@@ -234,16 +210,16 @@ typedef struct RFLiCharInfo {
             u16 padding : 1;
         };
         u16 rawdata;
-    } mole; // at 0x14
+    } mole;  // at 0x14
 
     struct {
         u8 height;
         u8 build;
-    } body; // at 0x16
+    } body;  // at 0x16
 
     struct {
-        wchar_t name[RFL_NAME_LEN + 1];       // at 0x18
-        wchar_t creator[RFL_CREATOR_LEN + 1]; // at 0x2E
+        u16 name[RFL_NAME_LEN + 1];        // at 0x18
+        u16 creator[RFL_CREATOR_LEN + 1];  // at 0x2E
 
         // at 0x44
         u16 sex : 1;
@@ -252,9 +228,9 @@ typedef struct RFLiCharInfo {
         u16 color : 4;
         u16 favorite : 1;
         u16 localOnly : 1;
-    } personal; // at 0x18
+    } personal;  // at 0x18
 
-    RFLCreateID createID; // at 0x46
+    RFLCreateID createID;  // at 0x46
 } RFLiCharInfo;
 
 typedef struct RFLiCharData {
@@ -266,10 +242,10 @@ typedef struct RFLiCharData {
     u16 favoriteColor : 4;
     u16 favorite : 1;
 
-    wchar_t name[RFL_NAME_LEN]; // at 0x2
-    u8 height;                  // at 0x16
-    u8 build;                   // at 0x17
-    RFLCreateID createID;       // at 0x18
+    u16 name[RFL_NAME_LEN];  // at 0x2
+    u8 height;               // at 0x16
+    u8 build;                // at 0x17
+    RFLCreateID createID;    // at 0x18
 
     // at 0x20
     u16 faceType : 3;
@@ -339,12 +315,12 @@ typedef struct RFLiCharData {
     u16 moleX : 5;
     u16 padding8 : 1;
 
-    wchar_t creatorName[RFL_CREATOR_LEN]; // at 0x36
+    u16 creatorName[RFL_CREATOR_LEN];  // at 0x36
 } RFLiCharData;
 
 typedef struct RFLiStoreData {
-    RFLiCharData data; // at 0x0
-    u16 checksum;      // at 0x4A
+    RFLiCharData data;  // at 0x0
+    u16 checksum;       // at 0x4A
 } RFLiStoreData;
 
 typedef struct RFLiHiddenCharData {
@@ -355,10 +331,10 @@ typedef struct RFLiHiddenCharData {
     u16 favoriteColor : 4;
     u16 favorite : 1;
 
-    wchar_t name[RFL_NAME_LEN]; // at 0x2
-    u8 height;                  // at 0x16
-    u8 build;                   // at 0x17
-    RFLCreateID createID;       // at 0x18
+    u16 name[RFL_NAME_LEN];  // at 0x2
+    u8 height;               // at 0x16
+    u8 build;                // at 0x17
+    RFLCreateID createID;    // at 0x18
 
     // at 0x20
     u16 faceType : 3;
@@ -428,7 +404,7 @@ typedef struct RFLiHiddenCharData {
     u16 moleX : 5;
     u16 padding8 : 1;
 
-    char padding9[10]; // at 0x36
+    char padding9[10];  // at 0x36
 } RFLiHiddenCharData;
 
 #ifdef __cplusplus

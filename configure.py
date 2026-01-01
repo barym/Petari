@@ -2700,7 +2700,7 @@ config.libs = [
         "RVLFaceLib",
         [
             Object(NonMatching, "RVLFaceLib/RFL_System.c"),
-            Object(NonMatching, "RVLFaceLib/RFL_NANDLoader.c"),
+            Object(Matching, "RVLFaceLib/RFL_NANDLoader.c"),
             Object(NonMatching, "RVLFaceLib/RFL_NANDAccess.c"),
             Object(NonMatching, "RVLFaceLib/RFL_Model.c"),
             Object(NonMatching, "RVLFaceLib/RFL_MakeTex.c"),
