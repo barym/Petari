@@ -23,30 +23,6 @@ extern "C" {
  */
 
 typedef enum {
-    RFLiAsyncTag_WriteFile,
-    RFLiAsyncTag_WriteCloseFile,
-    RFLiAsyncTag_ReadFile,
-    RFLiAsyncTag_ReadCloseFile,
-    RFLiAsyncTag_ReadCache,
-    RFLiAsyncTag_ReadCacheClose,
-    RFLiAsyncTag_WriteHDBFile,
-    RFLiAsyncTag_WriteHDBFileClose,
-    RFLiAsyncTag_ReadHDBFile,
-    RFLiAsyncTag_ReadHDBFileClose,
-    RFLiAsyncTag_CreateAsync,
-    RFLiAsyncTag_OpenAsync,
-    RFLiAsyncTag_SeekAsync,
-    RFLiAsyncTag_ReadAsync,
-    RFLiAsyncTag_WriteAsync,
-    RFLiAsyncTag_CloseAsync,
-    RFLiAsyncTag_GetLengthAsync,
-    RFLiAsyncTag_DeleteAsync,
-    RFLiAsyncTag_CreateDirAsync,
-
-    RFLiAsyncTag_Max
-} RFLiAsyncTag;
-
-typedef enum {
     RFLiFileBrokenType_DBNotFound,
     RFLiFileBrokenType_DBBroken,
     RFLiFileBrokenType_ResBroken,
@@ -54,13 +30,6 @@ typedef enum {
 
     RFLiFileBrokenType_Max
 } RFLiFileBrokenType;
-
-typedef enum {
-    RFLiFileType_Database,
-    RFLiFileType_Resource,
-
-    RFLiFileType_Max
-} RFLiFileType;
 
 typedef enum {
     RFLiHiddenType_Any,
