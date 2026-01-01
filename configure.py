@@ -2705,7 +2705,7 @@ config.libs = [
             Object(NonMatching, "RVLFaceLib/RFL_Model.c"),
             Object(NonMatching, "RVLFaceLib/RFL_MakeTex.c"),
             Object(NonMatching, "RVLFaceLib/RFL_Icon.c"),
-            Object(NonMatching, "RVLFaceLib/RFL_HiddenDatabase.c"),
+            Object(Matching, "RVLFaceLib/RFL_HiddenDatabase.c"),
             Object(Matching, "RVLFaceLib/RFL_Database.c"),
             Object(Matching, "RVLFaceLib/RFL_Controller.c"),
             Object(Matching, "RVLFaceLib/RFL_MiddleDatabase.c"),

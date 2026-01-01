@@ -1,16 +1,15 @@
 #include <RVLFaceLibInternal.h>
-#include <cstdio>
 
 static void writeData_(RFLiHiddenCharData* data) NO_INLINE;
 
-static void initWritableList_(void) {
+static void initWritableList_() {
     RFLiHDBManager* mgr = RFLiGetHDBManager();
     mgr->writeCb = NULL;
     mgr->list.num = 0;
     mgr->list.current = 0;
 }
 
-void RFLiInitHiddenDatabase(void) {
+void RFLiInitHiddenDatabase() {
     RFLiHDBManager* mgr = RFLiGetHDBManager();
     if (mgr != NULL) {
         mgr->cachedDB = NULL;
@@ -18,23 +17,21 @@ void RFLiInitHiddenDatabase(void) {
     }
 }
 
-static void loadclosecallback_(void) {
+static void loadclosecallback_() {
     RFLiHDBManager* mgr = RFLiGetHDBManager();
     if (mgr->loadCb != NULL) {
         mgr->loadCb(mgr->loadArg);
     }
 }
 
-static void loadcallback_(void) {
+static void loadcallback_() {
     RFLiHDBManager* mgr = RFLiGetHDBManager();
 
     if (RFLGetAsyncStatus() == RFLErrcode_Success) {
         RFLiHiddenCharData* data = mgr->loadTmp;
         RFLiCharInfo info;
 
-        if (RFLiIsSameID(
-                &data->createID,
-                &RFLiGetHiddenHeader()->data[mgr->loadIndex].createID)) {
+        if (RFLiIsSameID(&data->createID, &RFLiGetHiddenHeader()->data[mgr->loadIndex].createID)) {
             RFLiConvertHRaw2Info(data, &info);
 
             if (RFLiCheckValidInfo(&info) && RFLiIsValidOnNAND(&info)) {
@@ -51,16 +48,14 @@ static void loadcallback_(void) {
     RFLiCloseAsync(RFLiFileType_Database, loadclosecallback_);
 }
 
-static void loadopencallback_(void) {
+static void loadopencallback_() {
     RFLiHDBManager* mgr = RFLiGetHDBManager();
 
     if (RFLGetAsyncStatus() == RFLErrcode_Success) {
         s32 offset = mgr->loadIndex * sizeof(RFLiHiddenCharData);
         mgr->loadTmp = RFLiAlloc32(sizeof(RFLiHiddenCharData));
 
-        switch (RFLiReadAsync(RFLiFileType_Database, mgr->loadTmp,
-                              sizeof(RFLiHiddenCharData), loadcallback_,
-                              offset + sizeof(RFLiDatabase))) {
+        switch (RFLiReadAsync(RFLiFileType_Database, mgr->loadTmp, sizeof(RFLiHiddenCharData), loadcallback_, offset + sizeof(RFLiDatabase))) {
         case RFLErrcode_Success:
         case RFLErrcode_Busy:
             break;
@@ -77,8 +72,7 @@ static void loadopencallback_(void) {
     }
 }
 
-RFLErrcode RFLiLoadHiddenDataAsync(RFLiHiddenCharData* data, u16 index,
-                                   RFLiExCallback cb, u32 arg) {
+RFLErrcode RFLiLoadHiddenDataAsync(RFLiHiddenCharData* data, u16 index, RFLiExCallback cb, u32 arg) {
     RFLiHDBManager* mgr;
 
     if (index >= RFLi_HDB_DATA_MAX) {
@@ -103,8 +97,7 @@ RFLErrcode RFLiLoadHiddenDataAsync(RFLiHiddenCharData* data, u16 index,
     mgr->loadCb = cb;
     mgr->loadArg = arg;
 
-    return RFLiOpenAsync(RFLiFileType_Database, 1,
-                         loadopencallback_);
+    return RFLiOpenAsync(RFLiFileType_Database, 1, loadopencallback_);
 }
 
 RFLErrcode RFLiLoadCachedHiddenData(RFLiHiddenCharData* data, u16 index) {
@@ -129,8 +122,7 @@ RFLErrcode RFLiLoadCachedHiddenData(RFLiHiddenCharData* data, u16 index) {
     }
 
     if (RFLiIsCachedHDB()) {
-        if (RFLiIsSameID(&mgr->cachedDB[index].createID,
-                         &RFLiGetHiddenHeader()->data[index].createID)) {
+        if (RFLiIsSameID(&mgr->cachedDB[index].createID, &RFLiGetHiddenHeader()->data[index].createID)) {
             RFLiConvertHRaw2Info(&mgr->cachedDB[index], &info);
 
             if (RFLiCheckValidInfo(&info)) {
@@ -147,7 +139,7 @@ RFLErrcode RFLiLoadCachedHiddenData(RFLiHiddenCharData* data, u16 index) {
     }
 }
 
-static void writeCtrl2HDBCallback_(void) {
+static void writeCtrl2HDBCallback_() {
     RFLiCloseAsync(RFLiFileType_Database, NULL);
 }
 
@@ -206,19 +198,18 @@ static void create_(const RFLiHiddenCharData* data, s16 index) {
     it->sex = data->sex;
 }
 
-static void writeHeader_(void) {
+static void writeHeader_() {
     RFLiSaveDatabaseAsync(RFLiGetHDBManager()->writeCb);
 }
 
-static void writeCallback_(void) {
+static void writeCallback_() {
     RFLiHDBManager* mgr = RFLiGetHDBManager();
 
     if (RFLGetAsyncStatus() == RFLErrcode_Success) {
         RFLiHDBList* list = &RFLiGetHDBManager()->list;
 
         if (RFLiIsCachedHDB()) {
-            memcpy(&mgr->cachedDB[mgr->writeIndex], mgr->writeTmp,
-                   sizeof(RFLiHiddenCharData));
+            memcpy(&mgr->cachedDB[mgr->writeIndex], mgr->writeTmp, sizeof(RFLiHiddenCharData));
         }
 
         list->current++;
@@ -237,8 +228,7 @@ static void writeCallback_(void) {
 }
 
 static BOOL checkCtrlWritableData_(const RFLiCtrlBuf* buf, BOOL ch, u8 index) {
-    if (RFLiCheckCtrlBufferCore(buf, index,
-                                ch ? RFLiHiddenType_Yes : RFLiHiddenType_Any)) {
+    if (RFLiCheckCtrlBufferCore(buf, index, ch ? RFLiHiddenType_Yes : RFLiHiddenType_Any)) {
         RFLiHiddenCharData data;
         RFLiConvertRaw2HRaw(&buf->data[index], &data);
 
@@ -258,7 +248,6 @@ static u8 getCtrlWritableCount_(const RFLiCtrlBuf* buf, volatile s64 ch) {
 
     for (i = 0; i < RFL_CTRL_CHAR_MAX; i++) {
         if (checkCtrlWritableData_(buf, ch, i)) {
-
             RFLiHiddenCharData temp;
             RFLiConvertRaw2HRaw(&buf->data[i], &temp);
 
@@ -274,7 +263,7 @@ static u8 getCtrlWritableCount_(const RFLiCtrlBuf* buf, volatile s64 ch) {
     return count;
 }
 
-static s32 getFirstBlank_(void) {
+static s32 getFirstBlank_() {
     RFLiTableData* head = RFLiGetHiddenHeader()->data;
     int i;
 
@@ -302,13 +291,11 @@ static void writeData_(RFLiHiddenCharData* data) {
 
     memcpy(mgr->writeTmp, data, sizeof(RFLiHiddenCharData));
     mgr->writeIndex = blank;
-    RFLiWriteAsync(RFLiFileType_Database, mgr->writeTmp,
-                   sizeof(RFLiHiddenCharData), writeCallback_,
-                   (s16)blank * sizeof(RFLiHiddenCharData) +
-                       sizeof(RFLiDatabase));
+    RFLiWriteAsync(RFLiFileType_Database, mgr->writeTmp, sizeof(RFLiHiddenCharData), writeCallback_,
+                   (s16)blank * sizeof(RFLiHiddenCharData) + sizeof(RFLiDatabase));
 }
 
-static void openForWriteCallback_(void) {
+static void openForWriteCallback_() {
     RFLiHDBManager* mgr;
     RFLiHDBList* list;
 
@@ -325,12 +312,11 @@ static void openForWriteCallback_(void) {
     }
 }
 
-static void writeDataStart_(void) {
-    RFLiOpenAsync(RFLiFileType_Database, 2,
-                  openForWriteCallback_);
+static void writeDataStart_() {
+    RFLiOpenAsync(RFLiFileType_Database, 2, openForWriteCallback_);
 }
 
-static void writeHeaderStart_(void) {
+static void writeHeaderStart_() {
     RFLiOpenAsync(RFLiFileType_Database, 2, writeHeader_);
 }
 
@@ -493,7 +479,7 @@ void RFLiClearCacheHDB(RFLiHiddenCharData* cache) {
     memset(cache, 0, sizeof(RFLiHiddenCharData) * RFLi_HDB_DATA_MAX);
 }
 
-BOOL RFLiIsCachedHDB(void) {
+BOOL RFLiIsCachedHDB() {
     RFLiHDBManager* mgr;
 
     if (!RFLAvailable()) {

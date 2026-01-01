@@ -1,65 +1,111 @@
 #ifndef RVL_FACE_LIBRARY_INTERNAL_HIDDEN_DATABASE_H
 #define RVL_FACE_LIBRARY_INTERNAL_HIDDEN_DATABASE_H
+
+#include <RFL_Database.h>
+#include <RFL_Types.h>
+#include <RFLi_Controller.h>
 #include <RFLi_Format.h>
 #include <RFLi_Types.h>
-#include <revolution/types.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define RFLi_HDB_DATA_MAX 10000
-
-// Forward declarations
-typedef struct RFLiCtrlBuf;
+#define RFLi_HDB_DATA_MAX (10000)
 
 typedef struct RFLiHiddenDB {
-    u32 identifier;                        // at 0x0
-    s16 head;                              // at 0x4
-    s16 tail;                              // at 0x6
-    RFLiTableData data[RFLi_HDB_DATA_MAX]; // at 0x8
-    u8 padding[22];                        // at 0x1D4C8
-    u16 crc;                               // at 0x1D4DE
+    /* 0x00000 */ u32 identifier;
+    /* 0x00004 */ s16 head;
+    /* 0x00006 */ s16 tail;
+    /* 0x00008 */ RFLiTableData data[RFLi_HDB_DATA_MAX];
+    /* 0x1D4C8 */ u8 padding[22];
+    /* 0x1D4DE */ u16 crc;
 } RFLiHiddenDB;
 
 typedef struct RFLiHDBList {
-    RFLiHiddenCharData data[RFL_DB_CHAR_MAX]; // at 0x0
-    u8 num;                                   // at 0x1900
-    u8 current;                               // at 0x1901
+    /* 0x0000 */ RFLiHiddenCharData data[RFL_DB_CHAR_MAX];
+    /* 0x1900 */ u8 num;
+    /* 0x1901 */ u8 current;
 } RFLiHDBList;
 
 typedef struct RFLiHDBManager {
-    BOOL loaded;                  // at 0x0
-    BOOL readError;               // at 0x4
-    void* writeTmp;               // at 0x8
-    s16 writeIndex;               // at 0xC
-    RFLiCallback writeCb;         // at 0x10
-    void* formatTmp;              // at 0x14
-    RFLiCallback formatCb;        // at 0x18
-    s16 formatIndex;              // at 0x1C
-    RFLiHiddenCharData* loadDst;  // at 0x20
-    void* loadTmp;                // at 0x24
-    u32 loadArg;                  // at 0x28
-    RFLiExCallback loadCb;        // at 0x2C
-    u16 loadIndex;                // at 0x30
-    RFLiHiddenCharData* cachedDB; // at 0x34
-    BOOL cached;                  // at 0x38
-    RFLiHDBList list;             // at 0x3C
+    /* 0x00 */ BOOL loaded;
+    /* 0x04 */ BOOL readError;
+    /* 0x08 */ void* writeTmp;
+    /* 0x0C */ s16 writeIndex;
+    /* 0x10 */ RFLiCallback writeCb;
+    /* 0x14 */ void* formatTmp;
+    /* 0x18 */ RFLiCallback formatCb;
+    /* 0x1C */ s16 formatIndex;
+    /* 0x20 */ RFLiHiddenCharData* loadDst;
+    /* 0x24 */ void* loadTmp;
+    /* 0x28 */ u32 loadArg;
+    /* 0x2C */ RFLiExCallback loadCb;
+    /* 0x30 */ u16 loadIndex;
+    /* 0x34 */ RFLiHiddenCharData* cachedDB;
+    /* 0x38 */ BOOL cached;
+    /* 0x3C */ RFLiHDBList list;
 } RFLiHDBManager;
 
+/// @brief Initializes the hidden database manager.
 void RFLiInitHiddenDatabase(void);
-RFLErrcode RFLiLoadHiddenDataAsync(RFLiHiddenCharData* data, u16 index,
-                                   RFLiExCallback cb, u32 arg);
-RFLErrcode RFLiLoadCachedHiddenData(RFLiHiddenCharData* data, u16 index);
-RFLErrcode RFLiWriteCtrlToHiddenDB(const struct RFLiCtrlBuf* buf, BOOL ch);
-s32 RFLiSearchHiddenData(const RFLCreateID* id);
-u16 RFLiCountupHiddenDataNum(RFLSex sex);
-s16 RFLiGetHiddenNext(u16 index);
-s16 RFLiGetHiddenPrev(u16 index);
-BOOL RFLiIsValidHiddenData(u16 index, RFLSex sex) NO_INLINE;
-void RFLiClearCacheHDB(RFLiHiddenCharData* hdb);
+
+/// @brief Asynchronously loads hidden data from the database.
+/// @param data The destination buffer for the data.
+/// @param index The index of the data to load.
+/// @param cb The completion callback.
+/// @param arg The user argument for the callback.
+/// @returns The result of the operation.
+RFLErrcode RFLiLoadHiddenDataAsync(RFLiHiddenCharData*, u16, RFLiExCallback, u32);
+
+/// @brief Loads hidden data from the cache.
+/// @param data The destination buffer for the data.
+/// @param index The index of the data to load.
+/// @returns The result of the operation.
+RFLErrcode RFLiLoadCachedHiddenData(RFLiHiddenCharData*, u16);
+
+/// @brief Writes data from a controller buffer to the hidden database.
+/// @param buf The controller buffer.
+/// @param ch Whether to filter by hidden type.
+/// @returns The result of the operation.
+RFLErrcode RFLiWriteCtrlToHiddenDB(const RFLiCtrlBuf*, BOOL);
+
+/// @brief Searches for data with a specific ID in the hidden database.
+/// @param id The ID to search for.
+/// @returns The index of the data, or `-1` if not found.
+s32 RFLiSearchHiddenData(const RFLCreateID*);
+
+/// @brief Counts the number of valid hidden data entries.
+/// @param sex The sex to filter by.
+/// @returns The number of valid entries.
+u16 RFLiCountupHiddenDataNum(RFLSex);
+
+/// @brief Gets the index of the next entry in the hidden database linked list.
+/// @param index The current index.
+/// @returns The next index, or `-1` if not available.
+s16 RFLiGetHiddenNext(u16);
+
+/// @brief Gets the index of the previous entry in the hidden database linked list.
+/// @param index The current index.
+/// @returns The previous index, or `-1` if not available.
+s16 RFLiGetHiddenPrev(u16);
+
+/// @brief Checks if the hidden data at the specified index is valid.
+/// @param index The index to check.
+/// @param sex The sex to filter by.
+/// @returns `TRUE` if valid, `FALSE` otherwise.
+BOOL RFLiIsValidHiddenData(u16, RFLSex) NO_INLINE;
+
+/// @brief Clears the hidden database cache.
+/// @param hdb The cache buffer to clear.
+void RFLiClearCacheHDB(RFLiHiddenCharData*);
+
+/// @brief Checks if the hidden database is cached.
+/// @returns `TRUE` if cached, `FALSE` otherwise.
 BOOL RFLiIsCachedHDB(void);
 
 #ifdef __cplusplus
 }
 #endif
-#endif
+
+#endif  // RVL_FACE_LIBRARY_INTERNAL_HIDDEN_DATABASE_H
