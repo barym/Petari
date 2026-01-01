@@ -1,12 +1,14 @@
 #include <RVLFaceLibInternal.h>
 
+#define ONE_RADIAN_IN_DEGREES 57.29578f
+
 double atan2(double y, double x);
 
 inline float atan2f(float x, float y) {
     return atan2(x, y);
 }
 
-RFLErrcode RFLMakeIcon(void *buf, RFLDataSource source, RFLMiddleDB *middleDB, u16 index, RFLExpression expression, const RFLIconSetting *setting) {
+RFLErrcode RFLMakeIcon(void* buf, RFLDataSource source, RFLMiddleDB* middleDB, u16 index, RFLExpression expression, const RFLIconSetting* setting) {
     RFLiCharInfo info;
     RFLErrcode err = RFLiPickupCharInfo(&info, source, middleDB, index);
 
@@ -17,37 +19,31 @@ RFLErrcode RFLMakeIcon(void *buf, RFLDataSource source, RFLMiddleDB *middleDB, u
     return err;
 }
 
-void RFLiMakeIcon(void* buf, RFLiCharInfo* info, RFLExpression expression,
-                        const RFLIconSetting* setting) {
-    RFLCharModel model;               // sp+218
-    void* modelBuf;                   // sp+84
-    f32 vp[6];                        // sp+150
-    u32 byteSize;                     // sp+80
-    Mtx viewMtx;                      // sp+1e8
-    u32 scissorOffsetX;               // sp+7C
-    u32 scissorOffsetY;               // sp+78
-    u32 scissorWidth;                 // sp+74
-    u32 scissorHeight;                // sp+70
-    RFLiCoordinateData iconCoordData; // sp+118
-    RFLiCoordinateData coordData;     // sp+128
-    u32 bufSize;                      // sp+6C
-    RFLResolution resolution;         // sp+68
-    RFLExpFlag expFlag;               // sp+64
-    GXColor backColor;                // sp+60
-    Mtx44 projMtx;                    // sp+1A8
-    f32 fovy;                         // f31
-    f32 aspect;                       // f30
-    Vec cameraPos;                    // sp+10C
-    Vec target;                       // sp+100
-    Vec cameraUp;                     // sp+F4
-    GXLightObj light;                 // sp+168
-    Vec pos;                          // sp+E8
-    RFLDrawSetting drawSetting;       // sp+138
-
-    // buf -> r28
-    // info -> r29
-    // expression -> r27
-    // setting -> r30
+void RFLiMakeIcon(void* buf, RFLiCharInfo* info, RFLExpression expression, const RFLIconSetting* setting) {
+    RFLCharModel model;
+    void* modelBuf;
+    f32 vp[6];
+    u32 byteSize;
+    Mtx viewMtx;
+    u32 scissorOffsetX;
+    u32 scissorOffsetY;
+    u32 scissorWidth;
+    u32 scissorHeight;
+    RFLiCoordinateData iconCoordData;
+    RFLiCoordinateData coordData;
+    u32 bufSize;
+    RFLResolution resolution;
+    RFLExpFlag expFlag;
+    GXColor backColor;
+    Mtx44 projMtx;
+    f32 fovy;
+    f32 aspect;
+    Vec cameraPos;
+    Vec target;
+    Vec cameraUp;
+    GXLightObj light;
+    Vec pos;
+    RFLDrawSetting drawSetting;
 
     iconCoordData = (RFLiCoordinateData){1, 2, 0, FALSE, FALSE, FALSE};
     byteSize = setting->width * setting->height * sizeof(u16);
@@ -75,8 +71,7 @@ void RFLiMakeIcon(void* buf, RFLiCharInfo* info, RFLExpression expression,
     }
     backColor.a = 0;
 
-    GXGetScissor(&scissorOffsetX, &scissorOffsetY, &scissorWidth,
-                 &scissorHeight);
+    GXGetScissor(&scissorOffsetX, &scissorOffsetY, &scissorWidth, &scissorHeight);
     GXSetScissor(0, 0, setting->width, setting->height);
 
     RFLiSetupCopyTex(GX_RGBA8, setting->width, setting->height, buf, backColor);
@@ -86,9 +81,9 @@ void RFLiMakeIcon(void* buf, RFLiCharInfo* info, RFLExpression expression,
 
     aspect = (f32)setting->width / (f32)setting->height;
     if (setting->width < setting->height) {
-        fovy = 2 * ((180 / 3.141592653589793f) * atan2f(43.2f / aspect, 500.0f));
+        fovy = 2.0f * (ONE_RADIAN_IN_DEGREES * atan2f(43.2f / aspect, 500.0f));
     } else {
-        fovy = 2 * ((180 / 3.141592653589793f) * atan2f(43.2f, 500.0f));
+        fovy = 2.0f * (ONE_RADIAN_IN_DEGREES * atan2f(43.2f, 500.0f));
     }
 
     C_MTXPerspective(projMtx, fovy, aspect, 500.0f, 700.0f);
@@ -119,8 +114,7 @@ void RFLiMakeIcon(void* buf, RFLiCharInfo* info, RFLExpression expression,
     if (!setting->drawXluOnly) {
         GXSetColorUpdate(TRUE);
         GXSetAlphaUpdate(TRUE);
-        GXSetBlendMode(GX_BM_BLEND, GX_BL_SRCALPHA, GX_BL_INVSRCALPHA,
-                       GX_LO_COPY);
+        GXSetBlendMode(GX_BM_BLEND, GX_BL_SRCALPHA, GX_BL_INVSRCALPHA, GX_LO_COPY);
         RFLDrawOpa(&model);
     }
 
@@ -147,7 +141,7 @@ void RFLiMakeIcon(void* buf, RFLiCharInfo* info, RFLExpression expression,
     }
 
     RFLiFree(modelBuf);
-    GXSetViewportv(vp);
+    GXSetViewport(vp[0], vp[1], vp[2], vp[3], vp[4], vp[5]);
     GXSetScissor(scissorOffsetX, scissorOffsetY, scissorWidth, scissorHeight);
     RFLiSetCoordinateData(&coordData);
 }

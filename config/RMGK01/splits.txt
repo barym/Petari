@@ -9859,14 +9859,14 @@ RVLFaceLib/RFL_MakeTex.c:
 	extab       start:0x80006660 end:0x800066A0
 	extabindex  start:0x80006BE0 end:0x80006C40
 	.text       start:0x8045D400 end:0x8045FCC0
-	.rodata     start:0x8055C678 end:0x8055C748
+	.rodata     start:0x8055C678 end:0x8055C738
 	.sdata2     start:0x806C1D78 end:0x806C1E38
 
 RVLFaceLib/RFL_Icon.c:
 	extab       start:0x800066A0 end:0x800066B8
 	extabindex  start:0x80006C40 end:0x80006C64
 	.text       start:0x8045FCC0 end:0x804602A4
-	.rodata     start:0x8055C748 end:0x8055C778
+	.rodata     start:0x8055C738 end:0x8055C778
 	.sdata2     start:0x806C1E38 end:0x806C1E78
 
 RVLFaceLib/RFL_HiddenDatabase.c:
