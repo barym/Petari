@@ -2711,7 +2711,7 @@ config.libs = [
             Object(Matching, "RVLFaceLib/RFL_MiddleDatabase.c"),
             Object(Matching, "RVLFaceLib/RFL_DefaultDatabase.c"),
             Object(Matching, "RVLFaceLib/RFL_DataUtility.c"),
-            Object(NonMatching, "RVLFaceLib/RFL_Format.c"),
+            Object(Matching, "RVLFaceLib/RFL_Format.c"),
         ],
     ),
     MSLib(

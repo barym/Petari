@@ -1,5 +1,4 @@
 #include <RVLFaceLibInternal.h>
-#include <mem.h>
 
 #define MAGIC_OFFICIAL_DB 'RNOD'
 #define MAGIC_HIDDEN_DB 'RNHD'
@@ -8,19 +7,16 @@
 // TODO: How is this size calculated?
 #define TEMP_BUFFER_SIZE (TABLE_DATA_STEP * sizeof(RFLiHiddenCharData) + 0x30E0)
 
-static void RFLiClearTableData(RFLiTableData* data) {
+void RFLiClearTableData(RFLiTableData* data) {
     memset(data, 0, sizeof(RFLiTableData));
     data->next = -1;
     data->prev = -1;
 }
 
 void RFLiClearDBBuffer(void) {
-    RFLiDatabase* db;
-    RFLiHiddenDB* header;
+    RFLiDatabase* db = RFLiGetDBManager()->database;
+    RFLiHiddenDB* header = &db->hidden;
     int i;
-
-    db = RFLiGetDBManager()->database;
-    header = &db->hidden;
 
     // @bug Four-byte buffer overrun
     memset((u8*)db + sizeof(db->identifier), 0, sizeof(RFLiDatabase));

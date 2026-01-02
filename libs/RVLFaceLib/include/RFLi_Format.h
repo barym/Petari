@@ -7,15 +7,11 @@ extern "C" {
 #endif
 
 typedef struct RFLiTableData {
-    RFLCreateID createID; // at 0x0
-
-    // at 0x8
-    u16 sex : 1;
-    s16 next : 15;
-
-    // at 0xA
-    s16 padding2 : 1;
-    s16 prev : 15;
+    /* 0x0 */ RFLCreateID createID;
+    /* 0x8 */ u16 sex : 1;
+    /* 0x8 */ s16 next : 15;
+    /* 0xA */ s16 padding2 : 1;
+    /* 0xA */ s16 prev : 15;
 } RFLiTableData;
 
 void RFLiClearTableData(RFLiTableData* data);
