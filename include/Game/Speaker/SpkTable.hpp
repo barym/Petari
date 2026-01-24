@@ -20,7 +20,7 @@ public:
     void setResource(void*);
 
     bool mInitialized;   // 0x0
-    u32 mResourceCount;  // 0x4
+    s32 mResourceCount;  // 0x4
     u32 mEntryOffset;    // 0x8
     u32* mDataOffsets;   // 0xC
 };
