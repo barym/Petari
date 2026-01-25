@@ -3036,7 +3036,7 @@ config.libs = [
             Object(NonMatching, "JSystem/JAudio2/osdsp.cpp"),
             Object(NonMatching, "JSystem/JAudio2/osdsp_task.cpp"),
             Object(NonMatching, "JSystem/JAudio2/JASDriverIF.cpp"),
-            Object(NonMatching, "JSystem/JAudio2/JASSoundParams.cpp"),
+            Object(Matching, "JSystem/JAudio2/JASSoundParams.cpp"),
             Object(NonMatching, "JSystem/JAudio2/JAIAudible.cpp"),
             Object(NonMatching, "JSystem/JAudio2/JAIAudience.cpp"),
             Object(NonMatching, "JSystem/JAudio2/JAISe.cpp"),

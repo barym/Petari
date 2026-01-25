@@ -389,11 +389,11 @@ void JASTrack::updateTrack(f32 num) {
             f32 frd = _9C[4]._0;
             JASSoundParams* params = mgr->_48;
             if (params) {
-                fr8 *= params->_0[0];
-                fr9 *= params->_0[2];
-                frb += params->_0[3] - 0.5f;
-                frc += params->_0[1];
-                frd += params->_0[4];
+                fr8 *= params->mVolume;
+                fr9 *= params->mFxMix;
+                frb += params->mPan - 0.5f;
+                frc += params->mPitch;
+                frd += params->mDolby;
             }
             frb *= num;
             if (!mParent) {
