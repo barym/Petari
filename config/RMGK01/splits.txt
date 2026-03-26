@@ -61,12 +61,13 @@ nw4r/db/db_console.cpp:
 
 nw4r/db/db_assert.cpp:
 	.text       start:0x8000B8C4 end:0x8000BBA0
-	.data       start:0x805635A0 end:0x80564678
+	.data       start:0x805635A0 end:0x80563620
 	.sdata      start:0x806B1620 end:0x806B1628
 	.sbss       start:0x806B2E78 end:0x806B2E80
 
 nw4r/math/math_triangular.cpp:
 	.text       start:0x8000BBA0 end:0x8000BC68
+	.data       start:0x80563620 end:0x80564630
 	.sdata2     start:0x806B7C60 end:0x806B7C68
 
 nw4r/math/math_types.cpp:
@@ -74,6 +75,7 @@ nw4r/math/math_types.cpp:
 
 nw4r/lyt/lyt_init.cpp:
 	.text       start:0x8000BCF8 end:0x8000BD4C
+	.data       start:0x80564630 end:0x80564678
 	.sdata      start:0x806B1628 end:0x806B1630
 
 nw4r/lyt/lyt_pane.cpp:

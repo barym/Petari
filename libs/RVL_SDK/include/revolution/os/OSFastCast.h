@@ -1,12 +1,11 @@
 #ifndef OSFASTCAST_H
 #define OSFASTCAST_H
 
+#include "revolution/types.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#define OSf32tou16(in, out) asm volatile("psq_st   %1, 0(%0), 1, 3 " : : "b"(out), "f"(*(in)) : "memory")
-#define OSu16tof32(in, out) asm volatile("psq_l   %0, 0(%1), 1, 3  " : "=f"(*(out)) : "b"(in))
 
 static inline void OSInitFastCast(void) {
 #ifdef __MWERKS__
@@ -29,6 +28,36 @@ static inline void OSInitFastCast(void) {
         mtspr   0x395, r3
     }
 #endif
+}
+
+static f32 __OSu16tof32(register u16* arg) {
+    register f32 ret;
+
+    asm {
+        psq_l ret, 0(arg), 1, 3
+    }
+
+    return ret;
+}
+
+static void OSu16tof32(u16* in, volatile f32* out) {
+    *out = __OSu16tof32(in);
+}
+
+static u16 __OSf32tou16(register f32 arg) {
+    f32 a;
+    register f32* ptr = &a;
+    u16 r;
+
+    asm {
+        psq_st arg, 0(ptr), 1, 3
+    }
+    r = *(u16*)ptr;
+    return r;
+}
+
+static void OSf32tou16(f32* in, volatile u16* out) {
+    *out = __OSf32tou16(*in);
 }
 
 #ifdef __cplusplus
