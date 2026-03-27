@@ -5,6 +5,7 @@
 class LiveActor;
 class Koopa;
 class KoopaBattleMapStair;
+class HitSensor;
 
 namespace KoopaFunction {
     s32 registerBattleMapStair(KoopaBattleMapStair*);
@@ -28,4 +29,7 @@ namespace KoopaFunction {
 
     void registerKoopaSwitchKeeper(LiveActor*);
     void registerKoopaViewSwitchKeeper(LiveActor*);
+
+    void killKoopaFireStairsAll(Koopa*);
+    void tryKoopaReflectStarPiece(u32, HitSensor*, HitSensor*);
 };  // namespace KoopaFunction
