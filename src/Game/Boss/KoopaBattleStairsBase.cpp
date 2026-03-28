@@ -11,9 +11,6 @@ KoopaBattleStairsBase::KoopaBattleStairsBase(Koopa* pKoopa) : NerveExecutor("ク
     mStairGroup->initWithoutIter();
 }
 
-KoopaBattleStairsBase::~KoopaBattleStairsBase() {
-}
-
 void KoopaBattleStairsBase::calcFireStartPos(TVec3f* pOut, const char* pJointName) const {
     if (pJointName != nullptr) {
         KoopaFunction::setKoopaPos(this->mKoopa, pJointName);

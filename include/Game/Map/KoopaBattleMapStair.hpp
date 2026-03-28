@@ -19,6 +19,7 @@ public:
     bool isTypeDemoFar() const;
     bool isTypeDemoNear() const;
     bool isTypeNoRequestFire() const NO_INLINE;
+    bool isRequestedAttackVs3() const;
 
     void exeWaitSwitch();
     void exeWaitKoopaFire();
@@ -34,7 +35,7 @@ public:
     s32 mType;          // 0xA0
     bool mIsStairBig;   // 0xA4
     bool mIsStairTurn;  // 0xA5
-    u8 _A6;
+    bool _A6;
     u32 _A8;
     TVec3f _AC;
     s32 _B8;

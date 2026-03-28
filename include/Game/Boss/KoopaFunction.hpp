@@ -42,4 +42,13 @@ namespace KoopaFunction {
     void endKoopaAnimCamera(Koopa*, const char*, s32);
     KoopaSwitchKeeper* getKoopaSwitchKeeper(Koopa*);
     void startFaceCtrl(Koopa*);
+
+    bool tryStartKoopaCameraDemo(Koopa*, const char*, const char*, const char*);
+    LiveActor* getKoopaDemoMeteor1(Koopa*);
+    LiveActor* getKoopaDemoMeteor2(Koopa*);
+    LiveActor* getKoopaDemoMeteor3(Koopa*);
+    LiveActor* getKoopaDemoPeach(Koopa*);
+    LiveActor* getKoopaDemoKoopaJr(Koopa*);
+    LiveActor* getKoopaDemoKoopaJrShip(Koopa*);
+    bool tryEndKoopaCameraDemo(Koopa*, const char*, const char*);
 };  // namespace KoopaFunction

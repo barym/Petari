@@ -128,7 +128,7 @@ void KoopaBattleStairsVs1::exeDemo() {
     if (MR::isBckStopped((LiveActor*)mKoopa)) {
         KoopaFunction::endKoopaAnimCamera(mKoopa, "DemoBattleStairsStart", 0);
         MR::endDemo((LiveActor*)mKoopa, "階段の戦い開始デモ");
-        MR::onSwitchB(KoopaFunction::getKoopaSwitchKeeper(mKoopa));
+        MR::onSwitchB((LiveActor*)KoopaFunction::getKoopaSwitchKeeper(mKoopa));
         KoopaFunction::startFaceCtrl(mKoopa);
         MR::startStageBGM("MBGM_GALAXY_15_HURRY", false);
         setNerve(&NrvKoopaBattleStairsVs1::KoopaBattleStairsVs1NrvWait::sInstance);
