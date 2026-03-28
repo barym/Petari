@@ -1,11 +1,14 @@
 #pragma once
 
+#include <JSystem/JGeometry/TVec.hpp>
 #include <revolution/types.h>
 
 class LiveActor;
 class Koopa;
 class KoopaBattleMapStair;
 class HitSensor;
+class KoopaFireStairs;
+class KoopaSwitchKeeper;
 
 namespace KoopaFunction {
     s32 registerBattleMapStair(KoopaBattleMapStair*);
@@ -32,4 +35,11 @@ namespace KoopaFunction {
 
     void killKoopaFireStairsAll(Koopa*);
     void tryKoopaReflectStarPiece(u32, HitSensor*, HitSensor*);
+
+    void initKoopaAnimCamera(Koopa*, const char*);
+    void startKoopaAnimCamera(Koopa*, const char*, s32);
+    KoopaFireStairs* emitFireStairsToTarget(Koopa*, const KoopaBattleMapStair*, const TVec3f&, bool);
+    void endKoopaAnimCamera(Koopa*, const char*, s32);
+    KoopaSwitchKeeper* getKoopaSwitchKeeper(Koopa*);
+    void startFaceCtrl(Koopa*);
 };  // namespace KoopaFunction
