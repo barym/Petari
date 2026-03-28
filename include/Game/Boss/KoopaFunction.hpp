@@ -54,4 +54,6 @@ namespace KoopaFunction {
 
     TVec3f& getKoopaFront(const Koopa*);
     TVec3f* getKoopaFrontPtr(Koopa*);
+
+    void endFaceCtrlDirect(Koopa*);
 };  // namespace KoopaFunction
