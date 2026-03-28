@@ -51,4 +51,7 @@ namespace KoopaFunction {
     LiveActor* getKoopaDemoKoopaJr(Koopa*);
     LiveActor* getKoopaDemoKoopaJrShip(Koopa*);
     bool tryEndKoopaCameraDemo(Koopa*, const char*, const char*);
+
+    TVec3f& getKoopaFront(const Koopa*);
+    TVec3f* getKoopaFrontPtr(Koopa*);
 };  // namespace KoopaFunction

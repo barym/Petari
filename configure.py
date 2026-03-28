@@ -760,7 +760,7 @@ config.libs = [
             Object(NonMatching, "Game/Boss/DodoryuStateWait.cpp"),
             Object(NonMatching, "Game/Boss/DodoryuUtil.cpp"),
             Object(NonMatching, "Game/Boss/Koopa.cpp"),
-            Object(NonMatching, "Game/Boss/KoopaBattleBase.cpp"),
+            Object(Matching, "Game/Boss/KoopaBattleBase.cpp"),
             Object(NonMatching, "Game/Boss/KoopaBattleMain.cpp"),
             Object(Matching, "Game/Boss/KoopaBattleStairsBase.cpp"),
             Object(NonMatching, "Game/Boss/KoopaBattleStairsVs1.cpp"),
