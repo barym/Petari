@@ -1026,12 +1026,12 @@ Game/Boss/KoopaSensorCtrl.cpp:
 
 Game/Boss/KoopaSequencer.cpp:
 	.text       start:0x80061898 end:0x80061A18
-	.data       start:0x8056D650 end:0x8056D688
+	.data       start:0x8056D650 end:0x8056D678
 
 Game/Boss/KoopaSubSequenceBattle.cpp:
 	.text       start:0x80061A18 end:0x80061CFC
 	.ctors      start:0x8052E910 end:0x8052E914
-	.data       start:0x8056D688 end:0x8056D6F8
+	.data       start:0x8056D678 end:0x8056D6F8
 	.sbss       start:0x806B3470 end:0x806B3488
 
 Game/Boss/KoopaSequencerVs1.cpp:

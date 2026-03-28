@@ -1,5 +1,10 @@
 #include "Game/Boss/KoopaDemoPowerUp.hpp"
 #include "Game/Boss/KoopaFunction.hpp"
+#include "Game/LiveActor/Nerve.hpp"
+#include "Game/Util/ActorSwitchUtil.hpp"
+#include "Game/Util/DemoUtil.hpp"
+#include "Game/Util/LiveActorUtil.hpp"
+#include "Game/Util/PlayerUtil.hpp"
 #include "Game/Util/ScreenUtil.hpp"
 
 namespace NrvKoopaDemoPowerUp {
@@ -33,24 +38,24 @@ void KoopaDemoPowerUp::kill() {
 }
 
 void KoopaDemoPowerUp::exeWaitDemo() {
-    if (MR::tryStartDemoMarioPuppetable(getHost(), "パワーアップデモ")) {
+    if (MR::tryStartDemoMarioPuppetable((LiveActor*)getHost(), "パワーアップデモ")) {
         if (KoopaFunction::isKoopaVs1(getHost()) || KoopaFunction::isKoopaVs2(getHost())) {
             KoopaFunction::setKoopaPos(getHost(), "パワーアップデモ（クッパ）");
             MR::setPlayerPosAndWait("パワーアップデモ（マリオ");
 
             if (KoopaFunction::isKoopaLv3(getHost())) {
-                MR::startAction(getHost(), "DemoKoopaPowerUpFinal");
+                MR::startAction((LiveActor*)getHost(), "DemoKoopaPowerUpFinal");
                 KoopaFunction::startKoopaTargetCamera(getHost(), "最終パワーアップデモ");
                 MR::onSwitchB(KoopaFunction::getKoopaPowerUpSwitch(getHost()));
             } else {
-                MR::startAction(getHost(), "DemoKoopaPowerUp");
+                MR::startAction((LiveActor*)getHost(), "DemoKoopaPowerUp");
                 KoopaFunction::startKoopaTargetCamera(getHost(), "パワーアップデモ");
                 MR::onSwitchA(KoopaFunction::getKoopaPowerUpSwitch(getHost()));
             }
         } else {
             KoopaFunction::setKoopaPos(getHost(), "パワーアップデモＬｖ３（クッパ）");
             MR::setPlayerPosAndWait("パワーアップデモＬｖ３（マリオ）");
-            MR::startAction(getHost(), "DemoKoopaPowerUpFinal");
+            MR::startAction((LiveActor*)getHost(), "DemoKoopaPowerUpFinal");
             KoopaFunction::startKoopaTargetCamera(getHost(), "最終パワーアップデモ");
             MR::onSwitchA(KoopaFunction::getKoopaPowerUpSwitch(getHost()));
         }

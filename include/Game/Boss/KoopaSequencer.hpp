@@ -5,6 +5,8 @@
 class Koopa;
 class JMapInfoIter;
 class HitSensor;
+class KoopaDemoPowerUp;
+class KoopaDemoJumpToPlanet;
 
 class KoopaSequencer : public NerveExecutor {
 public:
@@ -21,4 +23,12 @@ public:
 
     void startBattleLevel2();
     void startBattleLevel3();
+
+    /* 0x08 */ Koopa* mKoopa;
+    /* 0x0C */ KoopaDemoPowerUp* mDemoPowerUp;
+    /* 0x10 */ void* _10;
+    /* 0x14 */ KoopaDemoJumpToPlanet* mDemoJumpToPlanet;
+    /* 0x18 */ s32 mLevel;
+    /* 0x1C */ s32 _1C;
+    /* 0x20 */ bool _20;
 };
