@@ -56,4 +56,6 @@ namespace KoopaFunction {
     TVec3f* getKoopaFrontPtr(Koopa*);
 
     void endFaceCtrlDirect(Koopa*);
+
+    void registerKoopaPowerUpSwitch(LiveActor*);
 };  // namespace KoopaFunction
