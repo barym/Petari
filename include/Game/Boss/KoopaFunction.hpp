@@ -74,4 +74,9 @@ namespace KoopaFunction {
     void emitKoopaFireShortFast(Koopa*);
     void emitKoopaFireShortCurve(Koopa*);
     void emitKoopaFireLongTime(Koopa*);
+
+    bool tryKoopaBodyAttackPlayerMaximum(HitSensor*, HitSensor*);
+    void startKoopaCamera(Koopa*, const char*);
+    HitSensor* getKoopaMessageSensor(Koopa*);
+    void emitKoopaShockWave(Koopa*);
 };  // namespace KoopaFunction
