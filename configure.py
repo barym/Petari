@@ -795,7 +795,7 @@ config.libs = [
             Object(NonMatching, "Game/Boss/KoopaStateAttackSpin.cpp"),
             Object(NonMatching, "Game/Boss/KoopaStateChaseRoll.cpp"),
             Object(NonMatching, "Game/Boss/KoopaStateDamageEscape.cpp"),
-            Object(NonMatching, "Game/Boss/KoopaStateGuard.cpp"),
+            Object(Matching, "Game/Boss/KoopaStateGuard.cpp"),
             Object(NonMatching, "Game/Boss/KoopaStateJumpAway.cpp"),
             Object(Matching, "Game/Boss/KoopaSwitchKeeper.cpp"),
             Object(Matching, "Game/Boss/KoopaViewSwitchKeeper.cpp"),
