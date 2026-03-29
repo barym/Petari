@@ -766,7 +766,7 @@ config.libs = [
             Object(NonMatching, "Game/Boss/KoopaBattleStairsVs1.cpp"),
             Object(Matching, "Game/Boss/KoopaBattleStairsVs3.cpp"),
             Object(Matching, "Game/Boss/KoopaBattleVs3Lv1.cpp"),
-            Object(NonMatching, "Game/Boss/KoopaBattleVs3Lv2.cpp"),
+            Object(Matching, "Game/Boss/KoopaBattleVs3Lv2.cpp"),
             Object(NonMatching, "Game/Boss/KoopaDemoPowerUp.cpp"),
             Object(NonMatching, "Game/Boss/KoopaDemoFallToPlanetVs3Lv2.cpp"),
             Object(NonMatching, "Game/Boss/KoopaDemoFallToPlanetVs3Lv3.cpp"),
