@@ -73,4 +73,5 @@ namespace KoopaFunction {
     void emitKoopaFireShortSlow(Koopa*);
     void emitKoopaFireShortFast(Koopa*);
     void emitKoopaFireShortCurve(Koopa*);
+    void emitKoopaFireLongTime(Koopa*);
 };  // namespace KoopaFunction
