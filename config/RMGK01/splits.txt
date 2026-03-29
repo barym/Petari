@@ -939,13 +939,13 @@ Game/Boss/KoopaBattleStairsVs3.cpp:
 Game/Boss/KoopaBattleVs3Lv1.cpp:
 	.text       start:0x8005B5CC end:0x8005BD60
 	.ctors      start:0x8052E8F0 end:0x8052E8F4
-	.data       start:0x8056C3C0 end:0x8056C4F0
+	.data       start:0x8056C3C0 end:0x8056C4A8
 	.sbss       start:0x806B33D8 end:0x806B33F8
 
 Game/Boss/KoopaBattleVs3Lv2.cpp:
 	.text       start:0x8005BD60 end:0x8005C504
 	.ctors      start:0x8052E8F4 end:0x8052E8F8
-	.data       start:0x8056C4F0 end:0x8056C570
+	.data       start:0x8056C4A8 end:0x8056C570
 	.sbss       start:0x806B33F8 end:0x806B3410
 
 Game/Boss/KoopaDemoPowerUp.cpp:

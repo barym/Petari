@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Game/System/NerveExecutor.hpp"
+#include "Game/LiveActor/ActorStateBase.hpp"
 
 class Koopa;
+class HitSensor;
 
-class KoopaStateGuard : public NerveExecutor {
+class KoopaStateGuard : public ActorStateBase< Koopa > {
 public:
     KoopaStateGuard(Koopa*);
-
-    /* 0x08 */ char _08[0x6];
+    bool tryStart(u32, HitSensor*, HitSensor*);
 };

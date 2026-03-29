@@ -5,14 +5,14 @@
 class Koopa;
 class HitSensor;
 
-class KoopaStateDamageEscape : public ActorStateBase< Koopa > {
+class KoopaStateChaseRoll : public ActorStateBase< Koopa > {
 public:
-    KoopaStateDamageEscape(Koopa*);
+    KoopaStateChaseRoll(Koopa*);
 
-    void startDamageReverse();
-    bool isDownEnd() const;
+    bool tryCalcAndSetBaseMtx();
     bool attackSensor(HitSensor*, HitSensor*);
     bool tryDamage(u32, HitSensor*, HitSensor*);
+    bool isEnableGuard() const;
 
-    /* 0x10 */ char _10[0x24];
+    /* 0x10 */ char _10[0x8];
 };

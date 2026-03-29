@@ -34,7 +34,7 @@ namespace KoopaFunction {
     void registerKoopaViewSwitchKeeper(LiveActor*);
 
     void killKoopaFireStairsAll(Koopa*);
-    void tryKoopaReflectStarPiece(u32, HitSensor*, HitSensor*);
+    bool tryKoopaReflectStarPiece(u32, HitSensor*, HitSensor*);
 
     void initKoopaAnimCamera(Koopa*, const char*);
     void startKoopaAnimCamera(Koopa*, const char*, s32);
@@ -58,4 +58,13 @@ namespace KoopaFunction {
     void endFaceCtrlDirect(Koopa*);
 
     void registerKoopaPowerUpSwitch(LiveActor*);
+
+    TVec3f* getPlanetCenterPos(const Koopa*);
+
+    bool isKoopaAngry(const Koopa*);
+    void changeBgmStateNormal(u32);
+    void startKoopaAngry(Koopa*);
+    bool tryKoopaPushPlayer(HitSensor*, HitSensor*);
+    bool tryKoopaAttackMapObj(HitSensor*, HitSensor*);
+    bool tryKoopaBodyAttackPlayer(HitSensor*, HitSensor*);
 };  // namespace KoopaFunction

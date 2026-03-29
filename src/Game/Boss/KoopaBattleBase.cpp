@@ -7,71 +7,71 @@
 static MR::ActorMoveParam sFindParam = {0.0f, 1.0f, 0.98f, 3.0f};
 
 KoopaBattleBase::KoopaBattleBase(const char* pName, Koopa* pKoopa)
-    : ActorStateBase< Koopa >(pName, pKoopa), mDamageEscape(nullptr), mGuard(nullptr), mCurrentStep(-1) {
+    : ActorStateBase< Koopa >(pName, pKoopa), mStateDamageEscape(nullptr), mStateGuard(nullptr), mCurrentStep(-1) {
 }
 
 KoopaBattleBase::~KoopaBattleBase() {
 }
 
 void KoopaBattleBase::init() {
-    mDamageEscape = new KoopaStateDamageEscape(mHost);
-    mGuard = new KoopaStateGuard(mHost);
+    mStateDamageEscape = new KoopaStateDamageEscape(getHost());
+    mStateGuard = new KoopaStateGuard(getHost());
 }
 
 void KoopaBattleBase::kill() {
     mIsDead = true;
-    MR::zeroVelocity(mHost);
-    KoopaFunction::startRecoverKoopaArmor(mHost);
-    KoopaFunction::startRecoverKoopaTailThorn(mHost);
+    MR::zeroVelocity(getHost());
+    KoopaFunction::startRecoverKoopaArmor(getHost());
+    KoopaFunction::startRecoverKoopaTailThorn(getHost());
     MR::overlayWithPreviousScreen(2);
 }
 
 void KoopaBattleBase::updateChasePlayer(const MR::ActorMoveParam& rMoveParam) {
     if (MR::isFirstStep(this)) {
-        MR::startAction(mHost, "Walk");
-        MR::onBind(mHost);
-        KoopaFunction::startFaceCtrl(mHost);
+        MR::startAction(getHost(), "Walk");
+        MR::onBind(getHost());
+        KoopaFunction::startFaceCtrl(getHost());
     }
 
-    if (MR::isBindedWall(mHost)) {
-        Koopa* koopa = mHost;
+    if (MR::isBindedWall(getHost())) {
+        Koopa* koopa = getHost();
         HitSensor* pSensor = koopa->getSensor("Body");
 
         if (!MR::sendMsgEnemyAttackToBindedSensor(koopa, pSensor)) {
-            MR::addVelocityJump(mHost, 15.0f);
+            MR::addVelocityJump(getHost(), 15.0f);
         }
     }
 
-    MR::moveAndTurnToPlayer(mHost, &mHost->_8C, rMoveParam);
+    MR::moveAndTurnToPlayer(getHost(), &getHost()->_8C, rMoveParam);
 
-    Koopa* koopa = mHost;
+    Koopa* koopa = getHost();
     f32 velocityLength = MR::calcVelocityLength(koopa);
     MR::setBckRate(koopa, 0.18f * velocityLength);
 }
 
 bool KoopaBattleBase::updateWander(const MR::ActorMoveParam& rMoveParam) {
     if (MR::isFirstStep(this)) {
-        MR::startAction(mHost, "Walk");
-        MR::onBind(mHost);
-        KoopaFunction::endFaceCtrl(mHost, -1);
+        MR::startAction(getHost(), "Walk");
+        MR::onBind(getHost());
+        KoopaFunction::endFaceCtrl(getHost(), -1);
         mCurrentStep = MR::getRandom(60L, 120L);
     }
 
-    if (MR::isBindedWall(mHost)) {
-        Koopa* koopa = mHost;
+    if (MR::isBindedWall(getHost())) {
+        Koopa* koopa = getHost();
         HitSensor* pSensor = koopa->getSensor("Body");
 
         if (!MR::sendMsgEnemyAttackToBindedSensor(koopa, pSensor)) {
-            MR::addVelocityJump(mHost, 15.0f);
+            MR::addVelocityJump(getHost(), 15.0f);
         }
     }
 
-    TVec3f& koopaFront = KoopaFunction::getKoopaFront(mHost);
-    TVec3f* koopaFrontPtr = KoopaFunction::getKoopaFrontPtr(mHost);
+    TVec3f& koopaFront = KoopaFunction::getKoopaFront(getHost());
+    TVec3f* koopaFrontPtr = KoopaFunction::getKoopaFrontPtr(getHost());
 
-    MR::moveAndTurnToDirection(mHost, koopaFrontPtr, koopaFront, rMoveParam._0, rMoveParam._4, rMoveParam._8, rMoveParam._C);
+    MR::moveAndTurnToDirection(getHost(), koopaFrontPtr, koopaFront, rMoveParam._0, rMoveParam._4, rMoveParam._8, rMoveParam._C);
 
-    Koopa* koopa = mHost;
+    Koopa* koopa = getHost();
     f32 velocityLength = MR::calcVelocityLength(koopa);
     MR::setBckRate(koopa, 0.18f * velocityLength);
 
@@ -80,11 +80,11 @@ bool KoopaBattleBase::updateWander(const MR::ActorMoveParam& rMoveParam) {
 
 bool KoopaBattleBase::updateSearch() {
     if (MR::isFirstStep(this)) {
-        MR::startAction(mHost, "Search");
-        MR::zeroVelocity(mHost);
+        MR::startAction(getHost(), "Search");
+        MR::zeroVelocity(getHost());
     }
 
-    Koopa* koopa = mHost;
+    Koopa* koopa = getHost();
     MR::rotateVecDegree(KoopaFunction::getKoopaFrontPtr(koopa), koopa->mGravity, 2.4f);
 
     if (MR::isStep(this, 120)) {
@@ -96,17 +96,17 @@ bool KoopaBattleBase::updateSearch() {
 
 bool KoopaBattleBase::updateFind() {
     if (MR::isFirstStep(this)) {
-        MR::startAction(mHost, "Find");
-        MR::setVelocityJump(mHost, 10.0f);
+        MR::startAction(getHost(), "Find");
+        MR::setVelocityJump(getHost(), 10.0f);
     }
 
-    Koopa* koopa = mHost;
+    Koopa* koopa = getHost();
     JGeometry::TVec3< f32 >* pFront = KoopaFunction::getKoopaFrontPtr(koopa);
     MR::moveAndTurnToPlayer(koopa, pFront, sFindParam);
 
     if (!MR::isFirstStep(this)) {
-        if (MR::isBindedGround(mHost)) {
-            MR::tryRumblePadAndCameraDistanceMiddle(mHost, 800.0f, 1200.0f, 2000.0f);
+        if (MR::isBindedGround(getHost())) {
+            MR::tryRumblePadAndCameraDistanceMiddle(getHost(), 800.0f, 1200.0f, 2000.0f);
             return true;
         }
     }
@@ -116,12 +116,12 @@ bool KoopaBattleBase::updateFind() {
 
 bool KoopaBattleBase::updateRecover(const Nerve* pNerve) {
     if (MR::isFirstStep(this)) {
-        MR::zeroVelocity(mHost);
-        MR::startAction(mHost, "Recover");
-        KoopaFunction::startRecoverKoopaArmor(mHost);
+        MR::zeroVelocity(getHost());
+        MR::startAction(getHost(), "Recover");
+        KoopaFunction::startRecoverKoopaArmor(getHost());
     }
 
-    if (MR::isActionEnd(mHost)) {
+    if (MR::isActionEnd(getHost())) {
         setNerve(pNerve);
         return true;
     }
