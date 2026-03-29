@@ -42,7 +42,7 @@ void KoopaBattleBase::updateChasePlayer(const MR::ActorMoveParam& rMoveParam) {
         }
     }
 
-    MR::moveAndTurnToPlayer(getHost(), &getHost()->_8C, rMoveParam);
+    MR::moveAndTurnToPlayer(getHost(), &getHost()->mFront, rMoveParam);
 
     Koopa* koopa = getHost();
     f32 velocityLength = MR::calcVelocityLength(koopa);

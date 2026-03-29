@@ -28,6 +28,8 @@ namespace KoopaFunction {
 
     bool isKoopaVs1(const Koopa*);
     bool isKoopaVs2(const Koopa*);
+    bool isKoopaLv1(const Koopa*);
+    bool isKoopaLv2(const Koopa*);
     bool isKoopaLv3(const Koopa*);
 
     void registerKoopaSwitchKeeper(LiveActor*);
@@ -67,4 +69,8 @@ namespace KoopaFunction {
     bool tryKoopaPushPlayer(HitSensor*, HitSensor*);
     bool tryKoopaAttackMapObj(HitSensor*, HitSensor*);
     bool tryKoopaBodyAttackPlayer(HitSensor*, HitSensor*);
+
+    void emitKoopaFireShortSlow(Koopa*);
+    void emitKoopaFireShortFast(Koopa*);
+    void emitKoopaFireShortCurve(Koopa*);
 };  // namespace KoopaFunction

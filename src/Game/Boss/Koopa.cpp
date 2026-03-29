@@ -7,7 +7,7 @@
 #include "Game/LiveActor/ActorJointCtrl.hpp"
 
 Koopa::Koopa(const char* pName, KoopaSequencer* pSequencer)
-    : LiveActor(pName), _8C(0.0f, 0.0f, 1.0f), mSequencer(pSequencer), mSensorCtrl(nullptr), mParts(nullptr), mJointCtrl(nullptr) {
+    : LiveActor(pName), mFront(0.0f, 0.0f, 1.0f), mSequencer(pSequencer), mSensorCtrl(nullptr), mParts(nullptr), mJointCtrl(nullptr) {
 }
 
 Koopa::~Koopa() {
@@ -51,7 +51,7 @@ bool Koopa::receiveOtherMsg(u32 msg, HitSensor* pSender, HitSensor* pReceiver) {
 void Koopa::init(const JMapInfoIter& rIter) {
     MR::initDefaultPos(this, rIter);
     LiveActor::initModelManagerWithAnm("Koopa", 0, false);
-    MR::calcActorAxisZ(&_8C, this);
+    MR::calcActorAxisZ(&mFront, this);
     MR::connectToSceneEnemy(this);
     MR::initLightCtrl(this);
     LiveActor::initHitSensor(32);

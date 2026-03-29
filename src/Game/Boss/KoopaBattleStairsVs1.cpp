@@ -237,7 +237,7 @@ void KoopaBattleStairsVs1::exeJumpToNextPosLoop() {
 
     mKoopa->mPosition.set(jumpPos);
     mKoopa->mPosition.y += 1000.0f * JMath::sSinCosTable.sinLap(180.0f * t);
-    MR::turnDirectionDegree(mKoopa, &mKoopa->_8C, mJumpFront, 2.0f);
+    MR::turnDirectionDegree(mKoopa, &mKoopa->mFront, mJumpFront, 2.0f);
 
     if (MR::isStep(this, 60)) {
         MR::tryRumblePadStrong(mKoopa, 0);

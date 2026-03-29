@@ -27,7 +27,7 @@ void KoopaSequencer::update() {
 }
 
 void KoopaSequencer::calcAndSetBaseMtx() {
-    MR::calcAndSetBaseMtxFromGravityAndZAxis((LiveActor*)mKoopa, mKoopa->_8C);
+    MR::calcAndSetBaseMtxFromGravityAndZAxis((LiveActor*)mKoopa, mKoopa->mFront);
 }
 
 void KoopaSequencer::attackSensor(HitSensor* pSender, HitSensor* pReceiver) {

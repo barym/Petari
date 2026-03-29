@@ -8,5 +8,14 @@ class KoopaStateAttackFireShort : public ActorStateBase< Koopa > {
 public:
     KoopaStateAttackFireShort(Koopa*);
 
-    /* 0x10 */ char _10[0xC];
+    virtual ~KoopaStateAttackFireShort();
+    virtual void init();
+    virtual void appear();
+
+    void exeStart();
+    void exeEmit();
+
+    /* 0x10 */ s32 mShotCount;
+    /* 0x14 */ s32 mMaxShots;
+    /* 0x18 */ s32 mShotInterval;
 };
