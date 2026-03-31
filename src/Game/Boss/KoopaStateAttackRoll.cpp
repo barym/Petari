@@ -23,12 +23,9 @@ static MR::ActorMoveParam sAttackRollParamLv3Slow = {8.0f, 2.0f, 0.8f, 0.5f};
 static MR::ActorMoveParam sAttackRollParamLv3Fast = {10.0f, 2.0f, 0.8f, 1.0f};
 static MR::ActorMoveParam sEndParam = {0.0f, 1.0f, 0.95f, 1.0f};
 
-KoopaStateAttackRoll::KoopaStateAttackRoll(Koopa* pKoopa) : ActorStateBase("State[ローリング攻撃]", pKoopa) {
-    mFigureBall = nullptr;
-    mWaitStep = 90;
-    mMaxRollStep = 600;
-    mIsHitPlayer = false;
-    mIsSkipWait = false;
+KoopaStateAttackRoll::KoopaStateAttackRoll(Koopa* pKoopa)
+    : ActorStateBase("State[ローリング攻撃]", pKoopa), mFigureBall(nullptr), mWaitStep(90), mMaxRollStep(600), mIsHitPlayer(false),
+      mIsSkipWait(false) {
 }
 
 KoopaStateAttackRoll::~KoopaStateAttackRoll() {

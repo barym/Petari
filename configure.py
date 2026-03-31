@@ -791,7 +791,7 @@ config.libs = [
             Object(Matching, "Game/Boss/KoopaStateAttackFireLong.cpp"),
             Object(Matching, "Game/Boss/KoopaStateAttackHipDrop.cpp"),
             Object(Matching, "Game/Boss/KoopaStateAttackRoll.cpp"),
-            Object(NonMatching, "Game/Boss/KoopaStateAttackShockWave.cpp"),
+            Object(Matching, "Game/Boss/KoopaStateAttackShockWave.cpp"),
             Object(NonMatching, "Game/Boss/KoopaStateAttackSpin.cpp"),
             Object(NonMatching, "Game/Boss/KoopaStateChaseRoll.cpp"),
             Object(NonMatching, "Game/Boss/KoopaStateDamageEscape.cpp"),

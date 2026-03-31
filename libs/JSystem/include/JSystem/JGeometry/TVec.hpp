@@ -678,7 +678,9 @@ namespace JGeometry {
         f32 squared(const TVec3& rB) const;
 #endif
 
-        void zero();
+        void zero() {
+            x = y = z = 0.0f;
+        }
 
         bool isZero() const {
             return squared() <= 0.0000038146973f;
