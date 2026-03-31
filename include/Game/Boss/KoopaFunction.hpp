@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Game/Util/ActorMovementUtil.hpp"
 #include <JSystem/JGeometry/TVec.hpp>
 #include <revolution/types.h>
 
@@ -82,4 +83,6 @@ namespace KoopaFunction {
     void emitKoopaShockWave(Koopa*);
     void createKoopaRollBall(Koopa*);
     LiveActor* getKoopaRollBall(Koopa*);
+    bool tryKoopaAttackPlayerMaximum(HitSensor*, HitSensor*);
+    bool moveAndTurnKoopaToPlayer(Koopa*, const MR::ActorMoveParam&);
 };  // namespace KoopaFunction
