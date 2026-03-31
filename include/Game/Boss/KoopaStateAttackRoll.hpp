@@ -4,15 +4,32 @@
 
 class Koopa;
 class HitSensor;
+class KoopaFigureBall;
 
 class KoopaStateAttackRoll : public ActorStateBase< Koopa > {
 public:
     KoopaStateAttackRoll(Koopa*);
 
+    virtual ~KoopaStateAttackRoll();
+    virtual void init();
+    virtual void appear();
+    virtual void kill();
+
     bool tryCalcAndSetBaseMtx();
     bool attackSensor(HitSensor*, HitSensor*);
-    bool isEnableGuard() const;
     bool isDamage(u32, HitSensor*, HitSensor*) const;
+    bool isEnableGuard() const;
 
-    /* 0x10 */ char _10[0x10];
+    void exeWaitToStart();
+    void exeStart();
+    void exeRollAir();
+    void exeRollGround();
+    void exeEndAir();
+    void exeEndLand();
+
+    /* 0x10 */ KoopaFigureBall* mFigureBall;
+    /* 0x14 */ s32 mWaitStep;
+    /* 0x18 */ s32 mMaxRollStep;
+    /* 0x1C */ bool mIsHitPlayer;
+    /* 0x1D */ bool mIsSkipWait;
 };

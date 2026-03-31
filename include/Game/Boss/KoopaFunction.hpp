@@ -80,4 +80,6 @@ namespace KoopaFunction {
     void startKoopaCamera(Koopa*, const char*);
     HitSensor* getKoopaMessageSensor(Koopa*);
     void emitKoopaShockWave(Koopa*);
+    void createKoopaRollBall(Koopa*);
+    LiveActor* getKoopaRollBall(Koopa*);
 };  // namespace KoopaFunction
