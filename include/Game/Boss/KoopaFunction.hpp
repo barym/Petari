@@ -10,6 +10,7 @@ class KoopaBattleMapStair;
 class HitSensor;
 class KoopaFireStairs;
 class KoopaSwitchKeeper;
+class KoopaRockBreak;
 
 namespace KoopaFunction {
     s32 registerBattleMapStair(KoopaBattleMapStair*);
@@ -85,4 +86,7 @@ namespace KoopaFunction {
     LiveActor* getKoopaRollBall(Koopa*);
     bool tryKoopaAttackPlayerMaximum(HitSensor*, HitSensor*);
     bool moveAndTurnKoopaToPlayer(Koopa*, const MR::ActorMoveParam&);
+    void createKoopaRock(Koopa*);
+    LiveActor* getKoopaRock(Koopa*);
+    KoopaRockBreak* getKoopaRockBreak(Koopa*);
 };  // namespace KoopaFunction

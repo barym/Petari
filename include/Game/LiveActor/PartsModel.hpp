@@ -7,7 +7,9 @@ class PartsModel : public LiveActor {
 public:
     PartsModel(LiveActor*, const char*, const char*, MtxPtr, int, bool);
 
-    virtual ~PartsModel() {}
+    virtual ~PartsModel() {
+    }
+
     virtual void init(const JMapInfoIter&) override;
     virtual void movement() override;
     virtual void calcAnim() override;
@@ -21,6 +23,10 @@ public:
     void initFixedPosition(MtxPtr, const TVec3f&, const TVec3f&);
     void loadFixedPosition(const char*);
     void offFixedPosNormalizeScale();
+
+    void setCalcOwnMtx(bool calcOwnMtx) {
+        mCalcOwnMtx = calcOwnMtx;
+    }
 
     LiveActor* mHost;          // 0x8C
     FixedPosition* mFixedPos;  // 0x90
